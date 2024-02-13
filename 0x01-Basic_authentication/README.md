@@ -1,4 +1,6 @@
-# **Delving Deep into REST API Authentication Mechanisms with Base64 in Python and Flask**
+<div align="center">
+    <h1>Delving Deep into REST API Authentication Mechanisms with ✨Base64 in Python and Flask✨</h1></div>
+
 
 
 ## **Introduction**
@@ -127,10 +129,11 @@ Authorization header sent successfully!
 - We construct the Authorization header by concatenating the string `'Basic '` with the encoded credentials.
 - Finally, we return the message `"Authorization header sent successfully!"`, indicating that the Authorization header was successfully sent.
 
-## **Conclusion**
+<div align="center">
+    <h2>Conclusion</h2>
 
 Authentication serves as the guardian of digital fortresses, ensuring only trusted entities are granted access to coveted treasures. Through metaphors and practical examples, we've endeavored to shed light on the intricacies of authentication, Base64 encoding, and HTTP headers like Authorization. Armed with this knowledge, you can 
-fortify your REST API endpoints and navigate the digital realm with confidence.
+fortify your REST API endpoints and navigate the digital realm with confidence.</div>
 
 ## **Resources**
 
