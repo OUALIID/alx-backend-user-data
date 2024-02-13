@@ -1,6 +1,7 @@
 <div align="center">
     <h1>Delving Deep into REST API Authentication Mechanisms with ✨Base64 in Python and Flask✨</h1></div>
 
+<div align="center"><p><img src="https://github.com/OUALIID/alx-backend-user-data/assets/96590775/4678d6fe-e51e-4643-abc8-43188c719d99" alt="Wildcard Address" width="800px" height="420px"></p></div>
 
 
 ## **Introduction**
