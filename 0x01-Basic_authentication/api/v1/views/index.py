@@ -5,7 +5,7 @@ from flask import jsonify, abort
 from api.v1.views import app_views
 
 
-@app_views.route('/status', methods=['GET'], strict_slashes=False)
+@app_views.route("/status", methods=['GET'], strict_slashes=False)
 def status() -> str:
     """ GET /api/v1/status
     Return:
@@ -14,7 +14,7 @@ def status() -> str:
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/stats/', strict_slashes=False)
+@app_views.route("/stats/", strict_slashes=False)
 def stats() -> str:
     """ GET /api/v1/stats
     Return:
@@ -26,10 +26,8 @@ def stats() -> str:
     return jsonify(stats)
 
 
-@app_views.route('/unauthorized', methods=['GET'])
+@app_views.route("/unauthorized", methods=['GET'])
 def unauthorized():
-    """GET /api/v1/unauthorized
-    Raise:
-      - 401 error by using abort
+    """ Simulate unauthorized access.
     """
     abort(401)
