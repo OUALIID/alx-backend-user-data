@@ -39,6 +39,7 @@ def Forbidden(error) -> str:
 
 @app.before_request
 def requestFilter() -> None:
+    
     if auth is None:
         return
     excluded_paths = [
