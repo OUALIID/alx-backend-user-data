@@ -37,7 +37,7 @@ def Forbidden(error) -> tuple:
     return jsonify({"error": "Forbidden"}), 403
 
 @app.before_request
-def before_request() -> None:
+def before_request():
     if auth is None:
         return
     excluded_paths = [
