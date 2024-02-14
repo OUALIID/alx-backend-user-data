@@ -20,4 +20,3 @@ class Auth:
     def current_user(self, request=None) -> TypeVar('User'):
         """Get the current user from the request"""
         return None
-
