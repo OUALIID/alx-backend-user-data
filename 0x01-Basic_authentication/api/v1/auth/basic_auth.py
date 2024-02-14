@@ -2,7 +2,6 @@
 """
 API Authentication Module
 """
-
 from api.v1.auth.auth import Auth
 
 
@@ -14,9 +13,8 @@ class BasicAuth(Auth):
         if authorization_header is None or not isinstance(
             authorization_header, str):
             return None
-        
+
         if authorization_header.startswith("Basic "):
             return authorization_header[6:]
         else:
             return None
-
