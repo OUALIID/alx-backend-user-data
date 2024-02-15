@@ -48,14 +48,13 @@ class BasicAuth(Auth):
     def user_object_from_credentials(
             self, user_email: str, user_pwd: str) -> TypeVar('User'):
         """ Create a User object using provided user credentials."""
-        if (not isinstance(user_email, str) and
+        if (not isinstance(user_email, str) or
                 not isinstance(user_pwd, str)):
             return None
 
         users = User.search({'email': user_email})
 
-        if users and len(users) == 1:
-            user = users[0]
+        for user in users:
             if user.is_valid_password(user_pwd):
                 return user
         return None
