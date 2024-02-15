@@ -3,7 +3,6 @@
 API Authentication Module
 """
 from api.v1.auth.auth import Auth
-from typing import Tuple
 import base64
 
 
@@ -34,3 +33,12 @@ class BasicAuth(Auth):
         except base64.binascii.Error:
             return None
 
+    def extract_user_credentials(
+            self, decoded_base64_authorization_header: str) -> (str, str):
+        """Extract username and password from user credentials string."""
+        if (not isinstance(
+                decoded_base64_authorization_header, str) or ':' not in
+                decoded_base64_authorization_header):
+            return None, None
+        email, password = decoded_base64_authorization_header.split(":", 1)
+        return email, password
