@@ -30,9 +30,9 @@ class BasicAuth(Auth):
                 not isinstance(base64_authorization_header, str)):
             return None
         try:
-            return base64.b64decode(
-                base64_authorization_header).decode('utf-8')
-        except base64.binascii.Error:
+            decoded_bytes = base64.b64decode(base64_authorization_header)
+            return decoded_bytes.decode('utf-8')
+        except (base64.binascii.Error, UnicodeDecodeError):
             return None
 
     def extract_user_credentials(
@@ -59,3 +59,14 @@ class BasicAuth(Auth):
             user = users[0]
             if user.is_valid_password(user_pwd):
                 return user
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """Retrieve the User instance for a request."""
+        authorization_header = request.headers.get('Authorization')
+        base64_auth_header = self.extract_base64_authorization_header(
+            authorization_header)
+        decoded_auth_header = self.decode_base64_authorization_header(
+            base64_auth_header)
+        user_email, user_pwd = self.extract_user_credentials(
+            decoded_auth_header)
+        return self.user_object_from_credentials(user_email, user_pwd)
