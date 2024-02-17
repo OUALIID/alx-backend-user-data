@@ -3,7 +3,6 @@
 SessionAuth module
 """
 from api.v1.auth.auth import Auth
-from models.user import User
 import uuid
 
 
@@ -28,5 +27,9 @@ class SessionAuth(Auth):
 
     def current_user(self, request=None):
         """ """
+        from models.user import User
+
         return User.get(self.user_id_for_session_id(
-            self.session_cookie(request)))
+            self.session_cookie(request)
+            ))
+
