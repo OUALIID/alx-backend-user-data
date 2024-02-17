@@ -20,7 +20,7 @@ class SessionAuth(Auth):
         return session_id
 
     def user_id_for_session_id(self, session_id: str = None) -> str:
-        """ Returns the user ID associated with the provided session ID."""
+        """Returns the user ID associated with the provided session ID."""
         if session_id is None or not isinstance(session_id, str):
             return None
 
