@@ -37,4 +37,3 @@ class SessionAuth(Auth):
             return None
 
         return user_id
-    
