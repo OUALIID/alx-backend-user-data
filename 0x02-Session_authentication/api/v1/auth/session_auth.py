@@ -26,10 +26,4 @@ class SessionAuth(Auth):
         return self.user_id_by_session_id.get(session_id)
 
     def current_user(self, request=None):
-        """ """
-        from models.user import User
-
-        return User.get(self.user_id_for_session_id(
-            self.session_cookie(request)
-            ))
-
+        pass
