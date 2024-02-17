@@ -28,9 +28,6 @@ class SessionAuth(Auth):
     
     def current_user(self, request=None):
         """Returns the current user's ID based on the session cookie."""
-        if request is None:
-            return None
-
         session_id = self.session_cookie(request)
         user_id = self.user_id_for_session_id(session_id)
         if session_id is None or user_id is None:
