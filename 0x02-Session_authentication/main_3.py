@@ -15,4 +15,4 @@ def root_path():
     return "Cookie value: {}\n".format(auth.session_cookie(request))
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port="5001")
