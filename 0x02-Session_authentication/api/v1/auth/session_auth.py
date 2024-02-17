@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-UserSession module
+SessionAuthmodule
 """
 from api.v1.auth.auth import Auth
 import uuid
