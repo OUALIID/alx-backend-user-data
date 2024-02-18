@@ -16,18 +16,20 @@ class SessionDBAuth(SessionExpAuth):
         if isinstance(session_id, str):
             UserSession.create(user_id=user_id, session_id=session_id)
             return session_id
+        return None
 
     def user_id_for_session_id(self, session_id=None):
         """Returns the associated user ID for the given session ID."""
         if session_id and isinstance(session_id, str):
             user_sessions = UserSession().search({"session_id": session_id})
             return user_sessions[0].user_id if user_sessions else None
+        return None
 
     def destroy_session(self, request=None):
         """Destroys the session associated with the request cookie."""
         session_id = self.session_cookie(request)
-        user_session = UserSession().search({"session_id": session_id})
-        if user_session:
-            user_session[0].delete()
+        user_sessions = UserSession().search({"session_id": session_id})
+        if user_sessions:
+            user_sessions[0].delete()
             return True
         return False
