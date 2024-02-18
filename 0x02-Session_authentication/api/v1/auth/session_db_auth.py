@@ -5,7 +5,7 @@ SessionDBAuth module
 from api.v1.auth.session_exp_auth import SessionExpAuth
 from models.user_session import UserSession
 from datetime import timedelta, datetime
-
+from flask import jsonify
 
 class SessionDBAuth(SessionExpAuth):
     """ Provides session ID authentication using a database."""
@@ -37,13 +37,12 @@ class SessionDBAuth(SessionExpAuth):
     def destroy_session(self, request=None):
         """Destroys the session associated with the request cookie."""
         session_id = self.session_cookie(request)
-
-        if session_id:
-            user_sessions = UserSession().search({"session_id": session_id})
-            if user_sessions:
-                try:
-                    user_sessions[0].delete()
-                    return True
-                except Exception:
-                    return False
-        return False
+        user_sessions = UserSession().search({"session_id": session_id})
+        if user_sessions:
+            try:
+                user_sessions[0].delete()
+                return jsonify({"message": "Session destroyed"}), 200
+            except Exception as e:
+                print(f"Error destroying session: {e}")
+                return jsonify({"error": "Internal Server Error"}), 500
+        return jsonify({"error": "Session not found"}), 404
