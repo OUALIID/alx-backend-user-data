@@ -5,7 +5,6 @@ from api.v1.auth.session_auth import SessionAuth
 from os import getenv
 from datetime import datetime, timedelta
 
-
 class SessionExpAuth(SessionAuth):
     """ Session expiration authentication class."""
     def __init__(self):
@@ -28,7 +27,7 @@ class SessionExpAuth(SessionAuth):
         return session_id
 
     def user_id_for_session_id(self, session_id=None):
-        """Returns the user ID associated with the given session ID."""
+        """ Returns the user ID associated with the given session ID."""
         if session_id is None:
             return None
 
@@ -36,15 +35,22 @@ class SessionExpAuth(SessionAuth):
         if session_data is None:
             return None
 
+        session_data = self.user_id_by_session_id[session_id]
         if self.session_duration <= 0:
-            return session_data.get("user_id")
+            session_data["user_id"]
+
+        user_id = session_data.get("user_id")
+        if user_id is None:
+            return None
+
+        if self.session_duration <= 0:
+            return user_id
 
         created_at = session_data.get("created_at")
         if created_at is None:
             return None
-
+        
         expiry_time = created_at + timedelta(seconds=self.session_duration)
         if expiry_time < datetime.now():
             return None
-        
-        return session_data.get("user_id")
+        return user_id
