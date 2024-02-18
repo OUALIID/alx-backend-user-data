@@ -9,7 +9,7 @@ from os import getenv
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login():
-    """ """
+    """ New Flask route handles all session authentication paths."""
     email = request.form.get("email")
     password = request.form.get("password")
 
