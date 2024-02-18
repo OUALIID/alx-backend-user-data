@@ -13,7 +13,7 @@ class SessionDBAuth(SessionExpAuth):
         """Creates a new UserSession instance and returns the session ID."""
         session_id = super().create_session(user_id)
         if isinstance(session_id, str):
-            UserSession.create(user_id=user_id, session_id=session_id)
+            UserSession.create(user_id=user_id, session_id=session_id).save()
             return session_id
         return None
 
