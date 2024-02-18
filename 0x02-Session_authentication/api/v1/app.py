@@ -26,7 +26,7 @@ elif os.getenv("AUTH_TYPE") == "session_auth":
     auth = SessionAuth()
 elif os.getenv("AUTH_TYPE") == "session_exp_auth":
     auth = SessionExpAuth()
-elif os.getenv("AUTH_TYPE") == "SessionDBAuth":
+elif os.getenv("AUTH_TYPE") == "session_db_auth":
     auth = SessionDBAuth()
 else:
     auth = Auth()
