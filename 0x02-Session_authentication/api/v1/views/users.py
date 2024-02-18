@@ -106,24 +106,36 @@ def update_user(user_id: str = None) -> str:
         if request.current_user is None:
             abort(404)
         return jsonify(request.current_user.to_json())
+
     if user_id is None:
         abort(404)
+
     user = User.get(user_id)
     if user is None:
         abort(404)
-    rj = None
+
     try:
-        rj = request.get_json()
+        request_json = request.get_json()
     except Exception as e:
-        rj = None
-    if rj is None:
         return jsonify({'error': "Wrong format"}), 400
-    if rj.get('first_name') is not None:
-        user.first_name = rj.get('first_name')
-    if rj.get('last_name') is not None:
-        user.last_name = rj.get('last_name')
-    user.save()
-    return jsonify(user.to_json()), 200
+
+    if not isinstance(request_json, dict):
+        return jsonify({'error': "Wrong format"}), 400
+
+    first_name = request_json.get('first_name')
+    last_name = request_json.get('last_name')
+
+    if first_name is not None:
+        user.first_name = first_name
+    if last_name is not None:
+        user.last_name = last_name
+
+    try:
+        user.save()
+        return jsonify(user.to_json()), 200
+    except Exception as e:
+        return jsonify({'error': "Can't update User: {}".format(e)}), 400
+
 
 
 @app_views.route("/users/me", methods=["GET"], strict_slashes=False)
