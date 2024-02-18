@@ -11,10 +11,11 @@ class SessionDBAuth(SessionExpAuth):
     """ Provides session ID authentication using a database."""
 
     def create_session(self, user_id=None):
-        """ Creates and returns a session ID."""
-        session_id = str(uuid4())
-        UserSession.create(user_id=user_id, session_id=session_id)
-        return session_id
+        """Creates a new UserSession instance and returns the session ID."""
+        session_id = super().create_session(user_id)
+        if isinstance(session_id, str):
+            UserSession.create(user_id=user_id, session_id=session_id)
+            return session_id
 
     def user_id_for_session_id(self, session_id=None):
         """ Returns the associated user ID for the given session ID."""
