@@ -137,7 +137,6 @@ def update_user(user_id: str = None) -> str:
         return jsonify({'error': "Can't update User: {}".format(e)}), 400
 
 
-
 @app_views.route("/users/me", methods=["GET"], strict_slashes=False)
 def retrieve_auth_user():
     """GET /api/v1/users/me
