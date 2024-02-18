@@ -6,7 +6,6 @@ from api.v1.auth.session_exp_auth import SessionExpAuth
 from models.user_session import UserSession
 from datetime import timedelta, datetime
 
-
 class SessionDBAuth(SessionExpAuth):
     """ Provides session ID authentication using a database."""
 
@@ -21,19 +20,8 @@ class SessionDBAuth(SessionExpAuth):
 
     def user_id_for_session_id(self, session_id=None):
         """Returns the associated user ID for the given session ID."""
-        def user_id_for_session_id(self, session_id=None):
-            """Returns the associated user ID for the given session ID."""
-            if session_id and isinstance(session_id, str):
-                if super().user_id_for_session_id(session_id) is None:
-                    return None
-                try:
-                    userSession = UserSession().search({"session_id": session_id})
-                except Exception:
-                    return None
-                if userSession is None or userSession == []:
-                    return None
-                return userSession[0].user_id
-            return None
+        if session_id and isinstance(session_id, str):
+            return super().user_id_for_session_id(session_id)
 
     def destroy_session(self, request=None):
         """Destroys the session associated with the request cookie."""
