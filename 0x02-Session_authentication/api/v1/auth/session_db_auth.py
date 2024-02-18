@@ -33,6 +33,6 @@ class SessionDBAuth(SessionExpAuth):
             return False
 
         session_id_cookie = request.cookies.get(self.SESSION_NAME)
-        if not session_id_cookie:
+        if session_id_cookie is None:
             return False
         return UserSession.delete_by_session_id(session_id_cookie)
