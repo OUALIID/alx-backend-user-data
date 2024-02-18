@@ -4,9 +4,7 @@
 from flask import Flask, request, jsonify, abort
 from api.v1.views import app_views
 from models.user import User
-from api.v1.app import auth
 from os import getenv
-
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
@@ -41,8 +39,10 @@ def login():
     '/api/v1/auth_session/logout',
     methods=['DELETE'],
     strict_slashes=False)
-def logout() -> str:
+def logout():
     """Logout route to delete the session."""
+    from api.v1.app import auth
+
     if not auth.destroy_session(request):
         abort(404)
 
