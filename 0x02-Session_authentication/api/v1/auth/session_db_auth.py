@@ -13,9 +13,7 @@ class SessionDBAuth(SessionExpAuth):
     def create_session(self, user_id=None):
         """ Creates and returns a session ID."""
         session_id = str(uuid4())
-        UserSession.create(user_id=user_id,
-                           session_id=session_id
-                           )
+        UserSession.create(user_id=user_id, session_id=session_id)
         return session_id
 
     def user_id_for_session_id(self, session_id=None):
