@@ -9,6 +9,7 @@ from uuid import uuid4
 
 class SessionDBAuth(SessionExpAuth):
     """ Provides session ID authentication using a database."""
+
     def create_session(self, user_id=None):
         """ Creates and returns a session ID."""
         session_id = str(uuid4())
