@@ -45,5 +45,5 @@ class SessionDBAuth(SessionExpAuth):
                     user_sessions[0].delete()
                     return True
                 except Exception:
-                    return user_sessions.user_id
-        return False
+                    return user_sessions
+        return None
