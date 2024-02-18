@@ -22,9 +22,9 @@ class SessionDBAuth(SessionExpAuth):
     def user_id_for_session_id(self, session_id=None):
         """Returns the associated user ID for the given session ID."""
         if session_id and isinstance(session_id, str):
-            user_id = super().user_id_for_session_id(session_id)
-            if user_id is not None:
-                return user_id
+            user_sessions = UserSession().search({"session_id": session_id})
+            if user_sessions:
+                return user_sessions[0].user_id
         return None
 
     def destroy_session(self, request=None):
