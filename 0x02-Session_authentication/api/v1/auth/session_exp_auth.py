@@ -5,6 +5,7 @@ from api.v1.auth.session_auth import SessionAuth
 from os import getenv
 from datetime import datetime, timedelta
 
+
 class SessionExpAuth(SessionAuth):
     """ Session expiration authentication class."""
     def __init__(self):
