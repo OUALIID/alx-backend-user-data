@@ -4,7 +4,6 @@ SessionDBAuth module
 """
 from api.v1.auth.session_exp_auth import SessionExpAuth
 from models.user_session import UserSession
-from uuid import uuid4
 
 
 class SessionDBAuth(SessionExpAuth):
