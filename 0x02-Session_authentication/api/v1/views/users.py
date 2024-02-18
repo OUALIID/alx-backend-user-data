@@ -132,6 +132,12 @@ def retrieve_auth_user():
     Return:
       - The authenticated User.
     """
+    from api.v1.auth.session_db_auth import session_expired
+
+    if session_expired(request):
+        return jsonify({"error": "Forbidden"}), 403
+
     if not hasattr(request, 'current_user') or request.current_user is None:
         return jsonify({"error": "Unauthorized"}), 401
+
     return jsonify(request.current_user.to_json()), 200
