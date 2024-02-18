@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""
+""" Module for session authentication
 """
 from flask import Flask, request, jsonify
 from api.v1.views import app_views
