@@ -5,9 +5,10 @@ from flask import Flask, request, jsonify, abort
 from api.v1.views import app_views
 from models.user import User
 from os import getenv
+from api.v1.auth.session_exp_auth import SessionExpAuth
 
 
-@app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
+@app_views.route('/auth_session/login/', methods=['POST'], strict_slashes=False)
 def login():
     """ New Flask route handles all session authentication paths."""
     email = request.form.get("email")
@@ -34,6 +35,7 @@ def login():
     response.set_cookie(session_name, session_id)
     return response
 
+session_auth = SessionExpAuth() 
 
 @app_views.route("/auth_session/logout",
                  methods=["DELETE"],
@@ -42,7 +44,12 @@ def logout():
     """Logout route to delete the session."""
     from api.v1.app import auth
 
-    if not auth.destroy_session(request):
-        abort(404)
 
-    return jsonify({}), 200
+    
+    if not session_auth.destroy_session(request):
+        abort(404)
+    
+    session_name = getenv("SESSION_NAME")
+    response = jsonify({})
+    response.delete_cookie(session_name)
+    return response, 200

@@ -43,5 +43,5 @@ class SessionDBAuth(SessionExpAuth):
             if user_sessions:
                 user_sessions[0].delete()
                 return True
-            return None
-        return None
+            return False
+        return False
