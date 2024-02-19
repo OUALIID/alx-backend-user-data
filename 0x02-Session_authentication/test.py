@@ -9,7 +9,7 @@ if __name__ == "__main__":
     user_email = "u13@hbtn.io"
     user_pwd = "pwd13"
 
-    r = requests.post('http://0.0.0.0:50001/api/v1/auth_session/login', data={ 'email': user_email, 'password': user_pwd })
+    r = requests.post('http://0.0.0.0:3456/api/v1/auth_session/login', data={ 'email': user_email, 'password': user_pwd })
     if r.status_code != 200:
         print("Wrong status code: {}".format(r.status_code))
         exit(1)
@@ -38,7 +38,7 @@ if __name__ == "__main__":
         sleep(1)
             
         """ Request Me """
-        r_user_me = requests.get('http://0.0.0.0:50001/api/v1/users/me', cookies={ '_my_session_id': cookie_session_id })
+        r_user_me = requests.get('http://0.0.0.0:3456/api/v1/users/me', cookies={ '_my_session_id': cookie_session_id })
         if r_user_me.status_code != 200:
             print("Wrong status code: {}".format(r_user_me.status_code))
             exit(1)
@@ -60,7 +60,7 @@ if __name__ == "__main__":
         sleep(1)
 
         """ Destroy Session """
-        r_destroy_session = requests.delete('http://0.0.0.0:50001/api/v1/auth_session/logout', cookies={ '_my_session_id': cookie_session_id })
+        r_destroy_session = requests.delete('http://0.0.0.0:3456/api/v1/auth_session/logout', cookies={ '_my_session_id': cookie_session_id })
         if r_destroy_session.status_code != 200:
             print("Wrong status code: {}".format(r_destroy_session.status_code))
             exit(1)
@@ -75,7 +75,7 @@ if __name__ == "__main__":
 
 
         """ Request Me = fail """
-        r_user_me = requests.get('http://0.0.0.0:50001/api/v1/users/me', cookies={ '_my_session_id': cookie_session_id })
+        r_user_me = requests.get('http://0.0.0.0:3456/api/v1/users/me', cookies={ '_my_session_id': cookie_session_id })
         if r_user_me.status_code != 403:
             print("Wrong status code: {}".format(r_user_me.status_code))
             exit(1)
