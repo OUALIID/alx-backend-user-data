@@ -41,6 +41,6 @@ class SessionDBAuth(SessionExpAuth):
         if session_id:
             user_sessions = UserSession().search({"session_id": session_id})
             if user_sessions:
-                user_sessions[0].remove()
+                user_sessions[0].delete()
                 return True
         return None
