@@ -21,16 +21,17 @@ class SessionDBAuth(SessionExpAuth):
 
     def user_id_for_session_id(self, session_id=None):
         """Returns the associated user ID for the given session ID."""
-        user_session = UserSession().search({"session_id": session_id})
-    
-        if user_session:
-            created_at = user_session[0].created_at
+        try:
+            userSession = UserSession().search({"session_id": session_id})
+        except Exception:
+            return None
+        if len(userSession):
+            created_at = userSession[0].created_at
             current_time = datetime.utcnow()
             expiration = created_at + timedelta(seconds=self.session_duration)
-            
-            if expiration >= current_time:
-                return user_session[0].user_id
-        
+            if expiration < current_time:
+                return None
+            return userSession[0].user_id
         return None
 
     def destroy_session(self, request=None):
