@@ -30,6 +30,8 @@ class DB:
         return self.__session
 
     def add_user(self, email, hashed_password):
-        """A method that has two arguments, email and hashed password,
-        and returns a User object."""
-        return User(email=email, hashed_password=hashed_password)
+        """Add a new user to the database."""
+        new_user = User(email=email, hashed_password=hashed_password)
+        self._session.add(new_user)
+        self._session.commit()
+        return new_user
