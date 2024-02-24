@@ -32,7 +32,6 @@ def login():
     """Login function to respond to the POST /sessions path."""
     email = request.form.get('email')
     password = request.form.get('password')
-
     try:
         if AUTH.valid_login(email, password):
             response = jsonify({"email": email, "message": "logged in"})
