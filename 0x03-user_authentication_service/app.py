@@ -55,7 +55,7 @@ def logout():
     abort(403)
 
 
-@app.route("/profile", methods=['GET'])
+@app.route("/profile")
 def profile():
     """A profile function to respond to the GET /profile path."""
     user = AUTH.get_user_from_session_id(request.cookies.get('session_id'))
@@ -66,4 +66,4 @@ def profile():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5001, debug=True)
