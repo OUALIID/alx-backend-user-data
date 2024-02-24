@@ -26,6 +26,7 @@ def users():
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
 
+
 @app.route("/sessions", methods=['POST'])
 def login():
     """Login function to respond to the POST /sessions path."""
