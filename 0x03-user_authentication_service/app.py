@@ -64,7 +64,7 @@ def profile():
     email = request.form.get("email")
     session_id = request.cookies.get("session_id")
     if session_id:
-        return jsonify({"email": id.email}), 200
+        return jsonify({"email": email}), 200
     abort(403)
 
 
