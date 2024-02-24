@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from flask import Flask, jsonify, request, abort, redirect
+from flask import Flask, jsonify, request, abort, redirect, make_response
 from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -50,7 +50,9 @@ def logout():
     user = AUTH.get_user_from_session_id(session_id)
     if user:
         AUTH.destroy_session(user.id)
-        return redirect("/")
+        response = make_response(redirect("/"))
+        response.set_cookie("session_id", "", expires=0)  # Set a bad cookie
+        return response
     abort(403)
 
 
