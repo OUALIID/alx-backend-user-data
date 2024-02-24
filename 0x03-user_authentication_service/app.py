@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from flask import Flask, jsonify, request, abort, redirect, make_response
+from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -42,17 +42,15 @@ def login():
     except NoResultFound:
         abort(401)
 
-
 @app.route("/sessions", methods=['DELETE'])
 def logout():
     """Log out the user."""
     session_id = request.cookies.get('session_id')
-    user = AUTH.get_user_from_session_id(session_id)
-    if user:
-        AUTH.destroy_session(user.id)
-        response = make_response(redirect("/"))
-        response.set_cookie("session_id", "", expires=0)  # Set a bad cookie
-        return response
+    if session_id:
+        user = AUTH.get_user_from_session_id(session_id)
+        if user:
+            AUTH.destroy_session(user.id)
+            return redirect("/")
     abort(403)
 
 
