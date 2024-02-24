@@ -50,3 +50,12 @@ class Auth:
             return None
         user.session_id = _generate_uuid()
         return user.session_id
+
+    def et_user_from_session_id(self, session_id: str):
+        """Retrieve a user based on the session ID."""
+        try:
+            self._db.find_user_by(session_id=session_id)
+            return User
+        except NoResultFound:
+            return None
+        
