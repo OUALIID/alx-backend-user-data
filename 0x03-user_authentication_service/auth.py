@@ -64,7 +64,7 @@ class Auth:
         try:
             user = self._db.find_user_by(id=user_id)
             user.session_id = None
-        except Exception:
+        except NoResultFound:
             raise Exception
 
     def get_reset_password_token(self, email: str) -> str:
