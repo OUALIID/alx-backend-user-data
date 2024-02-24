@@ -2,7 +2,7 @@
 """
 user authentication service
 """
-from flask import Flask, jsonify, request, abort, redirect
+from flask import Flask, jsonify, request, abort, redirect, url_for
 from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -54,7 +54,7 @@ def logout():
         user = AUTH.get_user_from_session_id(session_id)
         if user:
             AUTH.destroy_session(user.id)
-            return redirect("/")
+            return redirect(url_for("welcom"))
     abort(403)
 
 
@@ -66,7 +66,7 @@ def profile():
         user = AUTH.get_user_from_session_id(session_id)
         if user:
             return jsonify({"email": user.email}), 200
-    return jsonify({"message": "Unauthorized"}), 403
+    abort(403)
 
 
 if __name__ == "__main__":
