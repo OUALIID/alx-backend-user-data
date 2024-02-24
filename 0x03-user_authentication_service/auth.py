@@ -48,4 +48,4 @@ class Auth:
             user = self._db.find_user_by(email=email)
         except NoResultFound:
             return None
-        return _generate_uuid()
+        return user._generate_uuid()
