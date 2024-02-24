@@ -42,6 +42,7 @@ def login():
     except NoResultFound:
         abort(401)
 
+
 @app.route("/sessions", methods=['DELETE'])
 def logout():
     """Log out the user."""
