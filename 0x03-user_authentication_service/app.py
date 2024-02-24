@@ -62,9 +62,10 @@ def logout():
 def profile():
     """Profile function to respond to the profile path."""
     session_id = request.cookies.get("session_id")
-    user = AUTH.get_user_from_session_id(session_id)
-    if user:
-        return jsonify({"email": user.email}), 200
+    if session_id:
+        user = AUTH.get_user_from_session_id(session_id)
+        if user:
+            return jsonify({"email": user.email}), 200
     abort(403)
 
 
