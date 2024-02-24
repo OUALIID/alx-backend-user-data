@@ -63,7 +63,7 @@ def profile():
     """Profile function to reply."""
     session_id = request.cookies.get("session_id")
     if session_id:
-        user = AUTH.get_user_from_session_id(session_id)
+        user = AUTH.get_reset_password_token(session_id)
         return jsonify({"email": user.email}), 200
     abort(403)
 
