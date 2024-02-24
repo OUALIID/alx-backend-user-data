@@ -74,4 +74,4 @@ class Auth:
         except ValueError:
             raise ValueError
         user.reset_token = _generate_uuid()
-        return user.reset_token
+        return  _generate_uuid()
