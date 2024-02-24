@@ -74,5 +74,5 @@ class Auth:
             token = _generate_uuid()
             user.reset_token = token
             return token
-        except ValueError:
+        except NoResultFound:
             raise ValueError
