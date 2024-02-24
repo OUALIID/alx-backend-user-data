@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+user authentication service
+"""
 from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
