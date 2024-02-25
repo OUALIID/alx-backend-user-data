@@ -14,6 +14,19 @@ def filter_datum(fields: List[str], redaction: str,
     return re.sub(f"({pattern})=[^{separator}]+", f"\\1={redaction}", message)
 
 
+PII_FIELDS = ('Name', 'Email', 'Phone', 'Address', 'SSN')
+
+
+def get_logger() -> logging.Logger:
+    """A function that takes no arguments
+    and returns a logging.Logger object."""
+    logger = logging.getLogger("user_data")
+    logger.setLevel(logging.INFO)
+    formatter = RedactingFormatter(fields=PII_FIELDS)
+    logger.addHandler(logging.StreamHandler().setFormatter(formatter))
+    return logger
+
+
 class RedactingFormatter(logging.Formatter):
     """Redacting Formatter class"""
 
