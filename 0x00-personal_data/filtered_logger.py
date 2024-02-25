@@ -5,6 +5,8 @@
 import re
 from typing import List
 import logging
+import os
+import mysql.connector
 
 
 def filter_datum(fields: List[str], redaction: str,
@@ -26,6 +28,16 @@ def get_logger() -> logging.Logger:
     formatter = RedactingFormatter(fields=PII_FIELDS)
     logger.addHandler(logging.StreamHandler().setFormatter(formatter))
     return logger
+
+
+def get_db():
+    db_config = {
+        "user": os.getenv("PERSONAL_DATA_DB_USERNAME", "root"),
+        "password": os.getenv("PERSONAL_DATA_DB_PASSWORD", ""),
+        "host": os.getenv("PERSONAL_DATA_DB_HOST", "localhost"),
+        "database": os.getenv("PERSONAL_DATA_DB_NAME")
+    }
+    return mysql.connector.connect(**db_config)
 
 
 class RedactingFormatter(logging.Formatter):
