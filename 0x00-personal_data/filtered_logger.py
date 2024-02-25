@@ -14,7 +14,7 @@ def filter_datum(fields: List[str], redaction: str,
     return re.sub(f"({pattern})=[^{separator}]+", f"\\1={redaction}", message)
 
 
-PII_FIELDS = ('Name', 'Email', 'Phone', 'Address', 'SSN')
+PII_FIELDS = ('Email', 'Name', 'Password', 'Phone', 'SSN')
 
 
 def get_logger() -> logging.Logger:
