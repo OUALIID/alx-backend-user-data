@@ -30,18 +30,6 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> mysql.connector.connection.MySQLConnection:
-    """A function that returns a connector to the database."""
-    db_username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
-    db_password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
-    db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
-    db_name = os.getenv("PERSONAL_DATA_DB_NAME")
-
-    return mysql.connector.connect(
-        user=db_username, password=db_password,
-        host=db_host, database=db_name)
-
-
 class RedactingFormatter(logging.Formatter):
     """Redacting Formatter class"""
 
@@ -59,3 +47,31 @@ class RedactingFormatter(logging.Formatter):
             record.msg = re.sub(f"{field}=[^;]+",
                                 f"{field}={self.REDACTION}", record.msg)
         return super().format(record)
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """A function that returns a connector to the database."""
+    db_username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
+    db_password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
+    db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = os.getenv("PERSONAL_DATA_DB_NAME")
+
+    return mysql.connector.connect(
+        user=db_username, password=db_password,
+        host=db_host, database=db_name)
+
+
+def main() -> None:
+    """Retrieve user data from the database and log it."""
+    with get_db().cursor() as cursor:
+        cursor.execute("SELECT * FROM users;")
+        log = get_logger()
+
+        for row in cursor:
+            row_str = "; ".join(f"{desc[0]}={str(value)}" for
+                                desc, value in zip(cursor.description, row))
+            log.info(row_str)
+
+
+if __name__ == "__main__":
+    main()
