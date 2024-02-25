@@ -66,7 +66,6 @@ def main() -> None:
     with get_db().cursor() as cursor:
         cursor.execute("SELECT * FROM users;")
         log = get_logger()
-
         for row in cursor:
             row_str = "; ".join(f"{desc[0]}={str(value)}" for
                                 desc, value in zip(cursor.description, row))
