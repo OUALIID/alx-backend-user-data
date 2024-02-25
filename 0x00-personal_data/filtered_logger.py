@@ -40,7 +40,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     }
     try:
         return mysql.connector.connect(**db_config)
-    except:
+    except mysql.connector.Error:
         return None
 
 
