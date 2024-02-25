@@ -31,6 +31,7 @@ def get_logger() -> logging.Logger:
 
 
 def get_db():
+    """A function that returns a connector to the database"""
     db_config = {
         "user": os.getenv("PERSONAL_DATA_DB_USERNAME", "root"),
         "password": os.getenv("PERSONAL_DATA_DB_PASSWORD", ""),
