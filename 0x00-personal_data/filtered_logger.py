@@ -28,5 +28,6 @@ class RedactingFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         """Format the log record, redacting sensitive information."""
         for field in self.fields:
-            record.msg = re.sub(f"{field}=[^;]+", f"{field}={self.REDACTION}", record.msg)
+            record.msg = re.sub(f"{field}=[^;]+",
+                                f"{field}={self.REDACTION}", record.msg)
         return super().format(record)
